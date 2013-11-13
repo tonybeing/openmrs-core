@@ -283,7 +283,8 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 	 */
 	@Transactional(readOnly = true)
 	public List<Role> getAllRoles() throws APIException {
-		return dao.getAllRoles();
+		List<Role> roles = dao.getAllRoles();
+		return roles;
 	}
 	
 	/**
@@ -316,6 +317,9 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 		
 		if (OpenmrsUtil.getCoreRoles().keySet().contains(role.getRole()))
 			throw new APIException("Cannot delete a core role");
+		
+		if (role.hasChildRoles())
+			throw new APIException("Cannot delete a role other roles inherit from");
 		
 		dao.deleteRole(role);
 	}

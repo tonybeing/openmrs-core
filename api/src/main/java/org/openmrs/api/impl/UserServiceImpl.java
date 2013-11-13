@@ -283,8 +283,7 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 	 */
 	@Transactional(readOnly = true)
 	public List<Role> getAllRoles() throws APIException {
-		List<Role> roles = dao.getAllRoles();
-		return roles;
+		return dao.getAllRoles();
 	}
 	
 	/**
